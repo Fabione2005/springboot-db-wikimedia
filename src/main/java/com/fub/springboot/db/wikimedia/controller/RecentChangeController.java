@@ -2,6 +2,7 @@ package com.fub.springboot.db.wikimedia.controller;
 
 import com.fub.springboot.db.wikimedia.model.RecentChange;
 import com.fub.springboot.db.wikimedia.service.RecentChangeService;
+import io.micrometer.core.annotation.Timed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ public class RecentChangeController {
         this.recentChangeService = recentChangeService;
     }
 
+    @Timed(value = "api.requests", description = "API Request Metrics")
     @PostMapping
     public RecentChange createRecentChange(@RequestBody RecentChange recentChange) {
         return recentChangeService.saveRecentChange(recentChange);
